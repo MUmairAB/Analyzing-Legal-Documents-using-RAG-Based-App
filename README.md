@@ -1,6 +1,6 @@
-# Legal Document Analysis using Pinecone, OpenAI, and LangChain
+# Legal Document Analysis using RAG-Based App Using Pinecone, OpenAI, and LangChain
 
-This repo contains a program for analyzing the actual depositions to identify instances of admissions and contradictions by the witness. It uses **Pinecone**, **OpenAI**, and **LangChain**.
+This repo contains a RAG application for analyzing the actual depositions to identify instances of admissions and contradictions by the witness. It uses **Pinecone**, **OpenAI**, and **LangChain**.
 
 ## What is a Deposition?
 
