@@ -1,45 +1,30 @@
 """
-This script creates a Modal App for the "Python_Script.ipynb"
-Notebook. This means that this script performs the similar
-function in the Modal cloud rather than on a local machine.
+This script creates a Modal App for the same task. This means that this script also creates a RAG application but the only difference is that this app runs in the Modal cloud rather than on a local machine.
 
 Overview:
-The script analyzes legal documents using Pinecone, OpenAI, and
-LangChain. It processes a PDF document containing excerpts of a
-deposition placed in the Documents directory.
-The workflow is as follows:
+The script analyzes legal documents using Pinecone, OpenAI, and LangChain. It processes a PDF document containing excerpts of a deposition placed in the Documents directory. The workflow is as follows:
 
 Document Reading:
 
-The script uses the PyPDFLoader API from LangChain to read the
-document locally in the main() function.
-Note: Since Modal requires local data as function inputs,
-refer to the Modal documentation "https://modal.com/docs/guide/local-data" for more details.
+The script uses the PyPDFLoader API from LangChain to read the document locally in the main() function. Note: Since Modal requires local data as function inputs, refer to the Modal documentation "https://modal.com/docs/guide/local-data" for more details.
 
 Document Splitting:
-The script splits the large document into smaller chunks using the split_the_local_document() method.
-This method runs in the Modal cloud and returns LangChain Document objects.
+The script splits the large document into smaller chunks using the split_the_local_document() method. This method runs in the Modal cloud and returns LangChain Document objects.
 
 Embedding Creation and Storage:
-The subsequest step involves using the upsert_vectors_to_pinecone_from_document_object()
-method to create embeddings of these smaller chunks and store
-them in the Pinecone database.
+The subsequest step involves using the upsert_vectors_to_pinecone_from_document_object() method to create embeddings of these smaller chunks and store them in the Pinecone database.
 
 This step is also executed in the Modal cloud.
 
 Finding Admissions:
-The find_admissions() method is executed in the Modal cloud,
-which returns a dictionary containing all instances of admissions.
-The script then runs the create_json() method locally to store
-the results in the local Admissions directory.
+The find_admissions() method is executed in the Modal cloud. It uses another method called QnAchain() which retrieves the relevant data from the Pinecone and feeds it to the ChatGPT to get all instances of admissions. It returns the output as a dictionary.
+
+The script then runs the create_json() method locally to store the results in the local Admissions directory.
 
 Finding Contradictions:
-To find instances of contradictions, the find_contradictions()
-method is run in the Modal cloud, returning a dictionary
-containing all instances of contradictions.
+To find instances of contradictions, the find_contradictions() method is run in the Modal cloud. It also uses the same method called QnAchain() which retrieves the relevant data from the Pinecone and feeds it to the ChatGPT to get all instances of ontradictions(). It returns the output as a dictionary.
 
-The script subsequently runs the create_json() method locally
-to store the results in the local Contradictions directory.
+The script subsequently runs the create_json() method locally to store the results in the local Contradictions directory.
 
 note: To use this script, store the:
     - PINECONE_API_KEY as "my-pinecone-secret" in Modal account
